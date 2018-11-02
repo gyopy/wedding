@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Wix Pro Gallery Worker</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="origin">
+
+    
+          <script type="text/javascript">
+        window._trackJs = {
+          enabled: (Math.random() < 0.05),  
+          token: '695a7439cef94edcb860348c8e886f01',
+          application: "pro-gallery",
+           onError: function (payload, error){   
+            payload.metadata.push({
+              key: "component",
+              value: "worker"
+            });
+            return true; 
+          }
+        };
+      </script>
+      <script type="text/javascript" src="https://cdn.trackjs.com/releases/current/tracker.js" async></script>
+    
+    
+    <script>
+      window.staticsVersion="2.672.0";
+      window.staticBaseUrl="//static.parastorage.com/";
+      window.staticsUrl="https://static.parastorage.com/services/pro-gallery-statics/2.672.0/";
+      window.instance = "lid3Uo1LdMtxZ7yXmUsctxmbXTw_x0BD3MibfXceC_g.eyJpbnN0YW5jZUlkIjoiMDgxZGFlZmQtMzBhNS00MzlmLThmMDYtNTQ2N2U0MjY1ZTkzIiwiYXBwRGVmSWQiOiIxNDI3MWQ2Zi1iYTYyLWQwNDUtNTQ5Yi1hYjk3MmFlMWY3MGUiLCJtZXRhU2l0ZUlkIjoiZTY0YTIxMDAtMTljNC00MjhmLWI2ZmQtNGE2NmE3NWE5ZDg4Iiwic2lnbkRhdGUiOiIyMDE4LTExLTAyVDE0OjM5OjMyLjQ0M1oiLCJ1aWQiOm51bGwsImlwQW5kUG9ydCI6IjgwLjk4LjE5Mi4xMTYvNjI1OTIiLCJ2ZW5kb3JQcm9kdWN0SWQiOm51bGwsImRlbW9Nb2RlIjpmYWxzZSwib3JpZ2luSW5zdGFuY2VJZCI6IjQ1YTEyZmJhLTVhNjUtNDE3MS1hYWQ0LWU1YjY2ZTUzMzc5YiIsImFpZCI6IjdhNjMyODQxLTUyYjItNDhmNC1hOTMwLWEwMjY0YmUxZTU5NyIsImJpVG9rZW4iOiJlZTU3OGZmZC0yOTYxLTAxMTAtMzlmYi0xZTAxNDM3Y2MzMWIiLCJzaXRlT3duZXJJZCI6IjJlNmExNmE5LTIzM2UtNDAzNS1hMzJhLTc5NGY1N2MzZTA1YiJ9";
+      window.instanceId = "081daefd-30a5-439f-8f06-5467e4265e93";
+      window.isStore = "false";
+      window.proGalleryWidget = 'Worker';
+      window.isWorker = true;
+      window.isProGallery = true;
+
+      console.log("Worker Statics Version", window.staticsVersion);
+
+      try {
+        window.petri = {"specs.pro-gallery.ImageClientApi":"true","specs.LinguistProGalleryIntegrationSpec":"false","specs.pro-gallery.scaleRatio":"false","specs.pro-gallery.layoutesWithTextUnderneath":"true"};
+      } catch (e) {
+        window.petri = {};
+      }
+    </script>
+  </head>
+
+  <body>
+    <script src="https://static.parastorage.com/services/js-sdk/1.96.0/js/wix-private.min.js" crossorigin="anonymous"></script>
+    
+    <script type="text/javascript" src="https://ding.wix.com/asdk/dispatcher.js" async crossorigin="anonymous"></script>
+
+    <script>
+      function loadJS(filePath) {
+        var fileref = document.createElement('link');
+        fileref.setAttribute('rel', 'prefetch');
+        fileref.setAttribute('href', filePath);
+        document.getElementsByTagName('head')[0].appendChild(fileref);
+      }
+
+      try {
+        var Wix = window.Wix;
+        if (Wix && Wix.Worker && Wix.Worker.Utils) {
+          if (Wix.Worker.Utils.getViewMode() == 'editor') {
+            loadJS('//static.parastorage.com/services/editor-ui-lib/1.28.0/lib/editor-ui-lib-jquery.min.js');
+            loadJS('//static.parastorage.com/services/editor-ui-lib/1.28.0/lib/editor-ui-lib-angular.min.js');
+
+            if (window.location.search.toLowerCase().indexOf('isstore') > -1) {
+              var wixAddEventListener = Wix.Worker.addEventListener || Wix.addEventListener;
+              if (wixAddEventListener && typeof wixAddEventListener === 'function') {
+                wixAddEventListener(Wix.Events.SITE_PUBLISHED, function(e) {
+                  const xhr = new XMLHttpRequest();
+                  xhr.open('POST', '/api/v1/store/publish?instance=' + window.instance + '&isStore=true');
+                  xhr.withCredentials = true;
+                  xhr.setRequestHeader('Content-Type', 'application/json');
+                  xhr.send();
+                });
+              }
+            }
+
+          }
+        } else {
+          console.error('Wix.Worker.Utils isn\'t defined on worker.vm', Wix);
+        }
+      } catch (error) {
+        console.error('preload and publish event error', error);
+      }
+    </script>
+    <script>
+      try {
+        document.domain = 'wix.com';
+      } catch (e) {
+        console.log("couldn't set subdomain to wix.com");
+      }
+    </script>
+  </body>
+</html>
